@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Menu {
     private double MoneyShop;
     private double money;
+    private RegisterMember[] person;
     private double TotalPay=0;
     private static Scanner sc=new Scanner(System.in);
     Money a =new Money(0);
@@ -31,8 +32,14 @@ public class Menu {
                 Order();
                 break;
             case 2:
+//                Register();
+                break;
             case 3:
+//                Member();
+                break;
             case 4:
+//                Queue();
+                break;
             case 5:
                 MenuMoney();
                 break;
@@ -49,7 +56,7 @@ public class Menu {
                 + "\n4.Hawaiian"
                 + "\n5.Cheese Pizza"
                 + "\n0.Pay"
-                + "----->");
+                + "\n----->");
         p=sc.nextInt();
         switch(p){
             case 1://kid tang
@@ -61,8 +68,16 @@ public class Menu {
                 Order();
                 break;
             case 3:
+                this.TotalPay+=300;
+                Order();
+                break;
             case 4:
+                this.TotalPay+=350;
+                Order();
+                break;
             case 5:
+                this.TotalPay+=400;
+                break;
             case 0:
                 a.MoneyCustomerMustPay(this.TotalPay);
                 System.out.println("Total: "+this.TotalPay);
@@ -71,13 +86,14 @@ public class Menu {
         }
     }
     public void MenuMoney(){
-        System.out.println("\n1.Set Money"
+        System.out.println("1.Set Money"
                 + "\n2.Sum Money"
-                + "\n0.Back to Menu");
+                + "\n0.Back to Menu"
+                + "\n---->");
         int c=sc.nextInt();
         switch(c){
             case 1:
-                System.out.println("Set money Shop: ");
+                System.out.print("Set money Shop: ");
                 double i=sc.nextDouble();
                 this.MoneyShop=i;
                 a.SetupMoney(this.MoneyShop);
@@ -93,7 +109,8 @@ public class Menu {
     }
     public void MenuPay(){
         System.out.println("1.Member Menu"
-                + "2.Pay");
+                + "\n2.Pay"
+                + "\n---->");
         int i=sc.nextInt();
         switch(i){
             case 1:
@@ -114,5 +131,16 @@ public class Menu {
         }
     }
     public void MenuMember(){
-    } 
+        System.out.println("1.Check Score"
+                + "\n2.Redemption"
+                + "\n---->");
+        int i=sc.nextInt();
+        switch(i){
+            case 1:
+                
+                break;
+            case 2:
+                break;
+        }
+    }
 }
