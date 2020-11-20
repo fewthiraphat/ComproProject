@@ -3,27 +3,19 @@ package pizzamenament;
 import java.util.Scanner;
 
 public class Menu {
-    private double MoneyShop;
-    private double money;
-    private RegisterMember[] person;
+    private double moneyCustomerMustPay;
     private double TotalPay=0;
+    private int TotalPoinsOrder=0;
+    private int getPointMember;
     private static Scanner sc=new Scanner(System.in);
-    Money a =new Money(0);
-//    Money a=new Money(0);
-//    private double 
-    public void SetMoney(){
-        System.out.println("How much money?");
-        double i=sc.nextDouble();
-        a.SetupMoney(i);
-    }
+    private RegisterMember r=new RegisterMember(); 
     public void showMenu(){
         int c;
         System.out.print("****Menu****"
                 + "\n1.Order"
                 + "\n2.Register"
                 + "\n3.Member"
-                + "\n4.Queue"
-                + "\n5.ManageMoney"
+                + "\n4.Redeem Point"
                 + "\n0.Exits"
                 + "\n---> ");
         c=sc.nextInt();
@@ -32,16 +24,15 @@ public class Menu {
                 Order();
                 break;
             case 2:
-//                Register();
+                r.RegisterMember();
+                showMenu();
                 break;
             case 3:
-//                Member();
+                r.showAllMember();
+                showMenu();
                 break;
             case 4:
-//                Queue();
-                break;
-            case 5:
-                MenuMoney();
+                MenuPoint();
                 break;
             case 0:
                 break;
@@ -56,57 +47,47 @@ public class Menu {
                 + "\n4.Hawaiian"
                 + "\n5.Cheese Pizza"
                 + "\n0.Pay"
+                + "\n9.Cancel"
                 + "\n----->");
         p=sc.nextInt();
         switch(p){
             case 1://kid tang
                 this.TotalPay+=229;
+                this.TotalPoinsOrder+=100;
                 Order();
                 break;
             case 2:
                 this.TotalPay+=249;
+                this.TotalPoinsOrder+=100;
                 Order();
                 break;
             case 3:
-                this.TotalPay+=300;
+                this.TotalPay+=249;
+                this.TotalPoinsOrder+=100;
                 Order();
                 break;
             case 4:
-                this.TotalPay+=350;
+                this.TotalPay+=239;
+                this.TotalPoinsOrder+=100;
                 Order();
                 break;
             case 5:
-                this.TotalPay+=400;
+                this.TotalPay+=199;
+                this.TotalPoinsOrder+=100;
+                Order();
                 break;
+            case 9:
+                this.TotalPay=0;
+                this.TotalPoinsOrder=0;
+                showMenu();
             case 0:
-                a.MoneyCustomerMustPay(this.TotalPay);
+//                a.MoneyCustomerMustPay(this.TotalPay);
                 System.out.println("Total: "+this.TotalPay);
                 MenuPay();
                 break;
         }
     }
-    public void MenuMoney(){
-        System.out.println("1.Set Money"
-                + "\n2.Sum Money"
-                + "\n0.Back to Menu"
-                + "\n---->");
-        int c=sc.nextInt();
-        switch(c){
-            case 1:
-                System.out.print("Set money Shop: ");
-                double i=sc.nextDouble();
-                this.MoneyShop=i;
-                a.SetupMoney(this.MoneyShop);
-                MenuMoney();
-                break;
-            case 2:
-                System.out.println(a.SumMoney());
-                MenuMoney();
-                break;
-            case 0:
-                showMenu();
-        }
-    }
+    
     public void MenuPay(){
         System.out.println("1.Member Menu"
                 + "\n2.Pay"
@@ -114,33 +95,77 @@ public class Menu {
         int i=sc.nextInt();
         switch(i){
             case 1:
+                MenuMember();
+                break;
             case 2:
+                double change;
                 System.out.print("Enter Money: ");
                 double p=sc.nextDouble();
-                a.CustomerPay(p);
-                if(a.CustomerPay(p)==0){
+                this.moneyCustomerMustPay=p;
+                if(this.moneyCustomerMustPay==this.TotalPay){
+                    System.out.println("Change: "+(p-this.TotalPay));
+                    reset();
                     showMenu();
                 }
-                else if(a.CustomerPay(p)==-1){
-                    MenuPay();
+                else if(this.moneyCustomerMustPay>this.TotalPay){
+                    System.out.println("Change: "+(p-this.TotalPay));
+                    reset();
+                    showMenu();
                 }
                 else{
-                    System.out.println("Your Change: "+a.CustomerPay(p));
-                    showMenu();
+                    System.out.println("Not Enouugh Money");
+                    MenuPay();
                 }
+                break;
         }
     }
+    
     public void MenuMember(){
-        System.out.println("1.Check Score"
-                + "\n2.Redemption"
-                + "\n---->");
-        int i=sc.nextInt();
-        switch(i){
-            case 1:
-                
-                break;
-            case 2:
-                break;
-        }
+        int points;
+        System.out.print("Enter Name: ");
+        String name=sc.next();
+        System.out.print("Enter ID: ");
+        int id=sc.nextInt();
+        points=this.TotalPoinsOrder;
+        r.findMember(name, id);
+        System.out.println("Add Points: +"+this.TotalPoinsOrder);
+        r.addPointMemberAt(name, id, points);
+        System.out.print("Enter Money: ");
+                double p=sc.nextDouble();
+                this.moneyCustomerMustPay=p;
+                if(p==this.TotalPay){
+                    System.out.println("Change: "+(p-this.TotalPay));
+                    reset();
+                    showMenu();
+                }
+                else if(p>this.TotalPay){
+                    System.out.println("Change: "+(p-this.TotalPay));
+                    reset();
+                    showMenu();
+                }
+                else{
+                    System.out.println("Not Enouugh Money");
+                    MenuPay();
+                }
+    }
+    
+    public void reset(){
+        this.TotalPay=0;
+        this.TotalPoinsOrder=0;
+    }
+    
+    public void MenuPoint(){
+        System.out.println("*****Points*****");
+        System.out.print("Enter Name: ");
+        String name =sc.next();
+        System.out.print("Enter ID: ");
+        int id=sc.nextInt();
+        r.findMember(name, id);
+        System.out.print("Enter Points: ");
+        int points=sc.nextInt();
+        this.getPointMember=points;
+        r.redeem(name, id, this.getPointMember);
+        r.findMember(name, id);
+        showMenu();
     }
 }

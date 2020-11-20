@@ -1,29 +1,35 @@
 package pizzamenament;
-import java.util.Arrays;
+
 import java.util.Scanner;
 public class Member {
-    private long Id;
-    private long[] member;
-    private int b=0;
-    private double p;
-    private double points;
-    RegisterMember id=new RegisterMember();
-    Menu a=new Menu();
-    public Member(){
-        Scanner id=new Scanner(System.in);
-        System.out.println("ID Member: ");
-        long name=id.nextLong();
-        this.Id=name;
+    String name;
+    int id;
+    int points=0;
+    int usagePoints=0;
+//    private RegisterMember m=new RegisterMember();
+    public Member(String name, int id,int points) {
+        this.name = name;
+        this.id = id;
+        this.points=points;
     }
-    public long getId(){
-        return this.Id;
+
+    public String getName() {
+        return name;
     }
-    public long[] getMember(){
-        return this.member;
+
+    public int getId() {
+        return id;
     }
-    public void addMember(){
+    public int getPoints(){
+        return points;
     }
-    public void showMember(){
-        System.out.println("Member: "+this.member);
+
+    public int setPoints(int points) {
+        this.points += points;
+        return this.points;
+    }
+    @Override
+    public String toString() {
+        return "["+"name=" + name + ", id=" + id + ", points=" + this.points+ ']';
     }
 }

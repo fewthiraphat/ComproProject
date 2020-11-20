@@ -4,5 +4,4 @@ public class PizzaMenament {
         Menu m=new Menu();
         m.showMenu();
     }
-    
 }
