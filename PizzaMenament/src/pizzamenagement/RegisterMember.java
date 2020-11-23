@@ -2,7 +2,7 @@ package pizzamenagement;
 
 import java.util.Arrays;
 import java.util.Scanner;
-
+//The class that use for  Register the member
 public class RegisterMember {
 
     private int id;
@@ -14,7 +14,7 @@ public class RegisterMember {
     private final int PointToPizza = 100;
     private int getPointsMember = 0;
     private int usagePoints = 0;
-
+    //method for register member
     public void RegisterMember() {
         count++;
         if (count < this.member.length) {
@@ -42,7 +42,7 @@ public class RegisterMember {
             this.member[this.count] = new Member(this.name, this.id, this.points);
         }
     }
-
+    //method use to find member
     public void findMember(String name, int id) {
         for (int i = 0; i <= this.count; i++) {
             if (name == this.member[i].getName() || id == this.member[i].getId()) {
@@ -50,7 +50,7 @@ public class RegisterMember {
             }
         }
     }
-
+    //method for add the point for member
     public void addPointMemberAt(String name, int id, int points) {
         this.points = points;
         for (int i = 0; i <= this.count; i++) {
@@ -60,11 +60,11 @@ public class RegisterMember {
             }
         }
     }
-
+    //method that list for all member
     public void showAllMember() {
         System.out.println(Arrays.toString(member));
     }
-
+    //method that use forv redeem
     public void redeem(String name, int id, int points) {
         this.getPointsMember = points;
         for (int i = 0; i <= this.count; i++) {

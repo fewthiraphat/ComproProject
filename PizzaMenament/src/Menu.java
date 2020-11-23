@@ -1,14 +1,20 @@
 
-
 import java.util.Scanner;
 
+/**
+ * class for show menu of program
+ */
 public class Menu {
     private double moneyCustomerMustPay;
     private double TotalPay=0;
     private int TotalPoinsOrder=0;
     private int getPointMember;
     private static Scanner sc=new Scanner(System.in);
-    private RegisterMember r=new RegisterMember(); 
+    private RegisterMember r=new RegisterMember();
+
+    /**
+     * method for show menu of program
+     */
     public void showMenu(){
         int c;
         System.out.print("****Menu****"
@@ -38,8 +44,12 @@ public class Menu {
                 break;
         }
     }
+
+    /**
+     * method for show order menu of program
+     */
     public void Order(){
-            int p;
+        int p;
         System.out.print("****Pizza****"
                 + "\n1.Pepperoni"
                 + "\n2.Veggie"
@@ -87,7 +97,10 @@ public class Menu {
                 break;
         }
     }
-    
+
+    /**
+     * method for pay menu of program
+     */
     public void MenuPay(){
         System.out.println("1.Member Menu"
                 + "\n2.Pay"
@@ -119,7 +132,10 @@ public class Menu {
                 break;
         }
     }
-    
+
+    /**
+     * method for show menu of member
+     */
     public void MenuMember(){
         int points;
         System.out.print("Enter Name: ");
@@ -131,29 +147,35 @@ public class Menu {
         System.out.println("Add Points: +"+this.TotalPoinsOrder);
         r.addPointMemberAt(name, id, points);
         System.out.print("Enter Money: ");
-                double p=sc.nextDouble();
-                this.moneyCustomerMustPay=p;
-                if(p==this.TotalPay){
-                    System.out.println("Change: "+(p-this.TotalPay));
-                    reset();
-                    showMenu();
-                }
-                else if(p>this.TotalPay){
-                    System.out.println("Change: "+(p-this.TotalPay));
-                    reset();
-                    showMenu();
-                }
-                else{
-                    System.out.println("Not Enouugh Money");
-                    MenuPay();
-                }
+        double p=sc.nextDouble();
+        this.moneyCustomerMustPay=p;
+        if(p==this.TotalPay){
+            System.out.println("Change: "+(p-this.TotalPay));
+            reset();
+            showMenu();
+        }
+        else if(p>this.TotalPay){
+            System.out.println("Change: "+(p-this.TotalPay));
+            reset();
+            showMenu();
+        }
+        else{
+            System.out.println("Not Enouugh Money");
+            MenuPay();
+        }
     }
-    
+
+    /**
+     * metohd for reset the data of program
+     */
     public void reset(){
         this.TotalPay=0;
         this.TotalPoinsOrder=0;
     }
-    
+
+    /**
+     * method for set the data for member
+     */
     public void MenuPoint(){
         System.out.println("*****Points*****");
         System.out.print("Enter Name: ");
